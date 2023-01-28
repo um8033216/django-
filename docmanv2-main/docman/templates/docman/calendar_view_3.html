@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Money Laundering in Canada 2022</title>
+
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/static/bootstrap/css/docs.css">
+<link rel="stylesheet" href="/static/jquery-upload/css/jquery.fileupload.css">
+<link rel="stylesheet" href="/static/jquery-upload/css/jquery.fileupload-ui.css">
+<noscript><link rel="stylesheet" href="/static/jquery-upload/css/jquery.fileupload-noscript.css"></noscript>
+<noscript><link rel="stylesheet" href="/static/jquery-upload/css/jquery.fileupload-ui-noscript.css"></noscript>
+<!--
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.min.css">
+-->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+//  ga('create', 'UA-55479351-1', 'auto');
+//  ga('send', 'pageview');
+
+</script>
+
+
+<script src="/static/js/jquery-1.11.0.min.js"></script>
+<script src="/static/js/jquery.cookie.js"></script>
+<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="/static/cal/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+<script type="text/javascript" src="/static/moment/moment.js"></script>
+<script type="text/javascript" src="/static/cal/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+
+<style type="text/css">
+	.day {
+		
+	}
+	.day th {
+		text-align: center;
+	}
+	.day td {
+		font-size: 0.9em;
+	}
+	.first_row {
+		border-top: 0px solid black;
+	}
+	.presenter_line{
+		cursor: pointer;
+	}
+	.presenter_line:hover{
+		background-color: #dff0d8;
+	}
+	:target{
+		background-color: #E4F5DF;
+		border: 1px solid red;
+	}
+</style>
+<script type="text/javascript">
+</script>
+
+
+</head>
+
+<body>
+
+<header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">Money Laundering in Canada 2022</a>
+    </div>
+    <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+      <ul class="nav navbar-nav">
+				{% if user.is_staff %}
+        <li class="active">
+          <a href="/">Schedule</a>
+        </li>
+        <li>
+					<a href="/users/">Users</a>
+        </li>
+				{% endif %}
+        <li>
+        </li>
+			</ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+        </li>
+				<li>
+        </li>
+				{% if user.is_authenticated %}
+				<li>
+					<a href="/logout/" title="">Logout</a>
+				</li>
+				{% endif %}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="bs-docs-header" id="content" style="background-image:url(/static/img/home-page-before-content.jpg);">
+	<div class="container">
+		<h1>Presentations</h1>
+	</div>
+</div>
+
+<div class="container-fluid">
+
+	<ul class="nav nav-pills nav-justified">
+		<li ><a href="/calendar/1">Tuesday, December 2</a></li>
+		<li ><a href="/calendar/2">Wednesday, December 3</a></li>
+		<li class="active"><a href="/calendar/3">Thursday, December 4</a></li>
+	</ul>
+
+	<div style="text-align:center;"><h1>Thursday, December 4</h1></div>
+	<div class="row">
+
+		{% for room in rooms %}{%if room.name == '201' %}
+
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 day well" id="{{room.name}}">
+			<table class="table">
+				<thead>
+					<tr>
+						<th colspan="3">Room {{room.name}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{sessions.41.start_time|date:"H:i"}}</td>
+						<td><b>{{sessions.41.name}}<br><br>
+						</b></td>
+						<td></td>
+					</tr>
+					{% for pres in sessions.41.presentation_set.all %}
+					<tr>
+						<td></td>
+						<td class="presenter_line" onclick="window.location.href= '/presentation/{{pres.id}}';">
+						{{ pres.presenter.last_name }},
+						 {{ pres.presenter.first_name }}</td>
+						<td>
+							{% if pres.documents.count == 0 %}
+								<a href="/presentation/{{pres.id}}" title="Missing Document"><span class="glyphicon glyphicon-exclamation-sign" style="color:red"></span></a>
+							{% elif pres.documents.count == 1 %}
+								{% for doc in pres.documents.all|slice:"1" %}
+									<a href="/files/{{doc.file_path}}" title="{{ doc.name }}"><span class="glyphicon glyphicon-download-alt"></span></a>
+								{% endfor %}
+							{% else %}
+								<a href="/presentation/{{ pres.id }}" title="multiple documents"><span class="glyphicon glyphicon-plus"></span></a>
+							{% endif %}
+						</td>
+					</tr>
+					{% endfor %}
+
+
+					<tr>
+						<td>&nbsp;</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			{% endif %}{% endfor %}
+		</div>
+
+
+	<!--	 ROOM 202  	-->
+	<!--	 ROOM 202  	-->
+	<!--	 ROOM 202  	-->
+
+		{% for room in rooms %}{%if room.name == '202' %}
+
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 day well" id="{{room.name}}">
+			<table class="table">
+				<thead>
+					<tr>
+						<th colspan="3">Room {{room.name}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{sessions.11.start_time|date:"H:i"}}</td>
+						<td><b>{{sessions.11.name}}<br><br>
+						</b></td>
+						<td></td>
+					</tr>
+					{% for pres in sessions.11.presentation_set.all %}
+					<tr>
+						<td></td>
+						<td class="presenter_line" onclick="window.location.href= '/presentation/{{pres.id}}';">
+						{{ pres.presenter.last_name }},
+						 {{ pres.presenter.first_name }}</td>
+						<td>
+							{% if pres.documents.count == 0 %}
+								<a href="/presentation/{{pres.id}}" title="Missing Document"><span class="glyphicon glyphicon-exclamation-sign" style="color:red"></span></a>
+							{% elif pres.documents.count == 1 %}
+								{% for doc in pres.documents.all|slice:"1" %}
+									<a href="/files/{{doc.file_path}}" title="{{ doc.name }}"><span class="glyphicon glyphicon-download-alt"></span></a>
+								{% endfor %}
+							{% else %}
+								<a href="/presentation/{{ pres.id }}" title="multiple documents"><span class="glyphicon glyphicon-plus"></span></a>
+							{% endif %}
+						</td>
+					</tr>
+					{% endfor %}
+
+					<tr>
+						<td>&nbsp;</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			{% endif %}{% endfor %}
+		</div>
+
+
+
+
+	<!--	 ROOM 204  	-->
+	<!--	 ROOM 204  	-->
+	<!--	 ROOM 204  	-->
+		{% for room in rooms %}{%if room.name == '204' %}
+
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 day well" id="{{room.name}}">
+			<table class="table">
+				<thead>
+					<tr>
+						<th colspan="3">Room {{room.name}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{sessions.12.start_time|date:"H:i"}}</td>
+						<td><b>{{sessions.12.name}}<br><br>
+						</b></td>
+						<td></td>
+					</tr>
+					{% for pres in sessions.12.presentation_set.all %}
+					<tr>
+						<td></td>
+						<td class="presenter_line" onclick="window.location.href= '/presentation/{{pres.id}}';">
+						{{ pres.presenter.last_name }},
+						 {{ pres.presenter.first_name }}</td>
+						<td>
+							{% if pres.documents.count == 0 %}
+								<a href="/presentation/{{pres.id}}" title="Missing Document"><span class="glyphicon glyphicon-exclamation-sign" style="color:red"></span></a>
+							{% elif pres.documents.count == 1 %}
+								{% for doc in pres.documents.all|slice:"1" %}
+									<a href="/files/{{doc.file_path}}" title="{{ doc.name }}"><span class="glyphicon glyphicon-download-alt"></span></a>
+								{% endfor %}
+							{% else %}
+								<a href="/presentation/{{ pres.id }}" title="multiple documents"><span class="glyphicon glyphicon-plus"></span></a>
+							{% endif %}
+						</td>
+					</tr>
+					{% endfor %}
+
+					<tr>
+						<td>&nbsp;</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			{% endif %}{% endfor %}
+		</div>
+
+
+
+
+	<!--	 ROOM 206  	-->
+	<!--	 ROOM 206  	-->
+	<!--	 ROOM 206  	-->
+
+
+		{% for room in rooms %}{%if room.name == '206' %}
+
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 day well" id="{{room.name}}">
+			<table class="table">
+				<thead>
+					<tr>
+						<th colspan="3">Room {{room.name}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{sessions.33.start_time|date:"H:i"}}</td>
+						<td><b>{{sessions.33.name}}<br><br>
+						</b></td>
+						<td></td>
+					</tr>
+					{% for pres in sessions.33.presentation_set.all %}
+					<tr>
+						<td></td>
+						<td class="presenter_line" onclick="window.location.href= '/presentation/{{pres.id}}';">
+						{{ pres.presenter.last_name }},
+						 {{ pres.presenter.first_name }}</td>
+						<td>
+							{% if pres.documents.count == 0 %}
+								<a href="/presentation/{{pres.id}}" title="Missing Document"><span class="glyphicon glyphicon-exclamation-sign" style="color:red"></span></a>
+							{% elif pres.documents.count == 1 %}
+								{% for doc in pres.documents.all|slice:"1" %}
+									<a href="/files/{{doc.file_path}}" title="{{ doc.name }}"><span class="glyphicon glyphicon-download-alt"></span></a>
+								{% endfor %}
+							{% else %}
+								<a href="/presentation/{{ pres.id }}" title="multiple documents"><span class="glyphicon glyphicon-plus"></span></a>
+							{% endif %}
+						</td>
+					</tr>
+					{% endfor %}
+
+					<tr>
+						<td>&nbsp;</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			{% endif %}{% endfor %}
+		</div>
+
+
+	<!--	 ROOM 208  	-->
+	<!--	 ROOM 208  	-->
+	<!--	 ROOM 208  	-->
+
+
+		{% for room in rooms %}{%if room.name == '208' %}
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 day well" id="{{room.name}}">
+			<table class="table">
+				<thead>
+					<tr>
+						<th colspan="3">Room {{room.name}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{sessions.35.start_time|date:"H:i"}}</td>
+						<td><b>{{sessions.35.name}}<br><br>
+						</b></td>
+						<td></td>
+					</tr>
+					{% for pres in sessions.35.presentation_set.all %}
+					<tr>
+						<td></td>
+						<td class="presenter_line" onclick="window.location.href= '/presentation/{{pres.id}}';">
+						{{ pres.presenter.last_name }},
+						 {{ pres.presenter.first_name }}</td>
+						<td>
+							{% if pres.documents.count == 0 %}
+								<a href="/presentation/{{pres.id}}" title="Missing Document"><span class="glyphicon glyphicon-exclamation-sign" style="color:red"></span></a>
+							{% elif pres.documents.count == 1 %}
+								{% for doc in pres.documents.all|slice:"1" %}
+									<a href="/files/{{doc.file_path}}" title="{{ doc.name }}"><span class="glyphicon glyphicon-download-alt"></span></a>
+								{% endfor %}
+							{% else %}
+								<a href="/presentation/{{ pres.id }}" title="multiple documents"><span class="glyphicon glyphicon-plus"></span></a>
+							{% endif %}
+						</td>
+					</tr>
+					{% endfor %}
+
+					<tr>
+						<td>&nbsp;</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			{% endif %}{% endfor %}
+		</div>
+
+
+
+	<!--	 ROOM 210  	-->
+	<!--	 ROOM 210  	-->
+	<!--	 ROOM 210  	-->
+
+		{% for room in rooms %}{%if room.name == '210' %}
+
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 day well" id="{{room.name}}">
+			<table class="table">
+				<thead>
+					<tr>
+						<th colspan="3">Room {{room.name}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{sessions.36.start_time|date:"H:i"}}</td>
+						<td><b>{{sessions.36.name}}<br><br>
+						</b></td>
+						<td></td>
+					</tr>
+					{% for pres in sessions.36.presentation_set.all %}
+					<tr>
+						<td></td>
+						<td class="presenter_line" onclick="window.location.href= '/presentation/{{pres.id}}';">
+						{{ pres.presenter.last_name }},
+						 {{ pres.presenter.first_name }}</td>
+						<td>
+							{% if pres.documents.count == 0 %}
+								<a href="/presentation/{{pres.id}}" title="Missing Document"><span class="glyphicon glyphicon-exclamation-sign" style="color:red"></span></a>
+							{% elif pres.documents.count == 1 %}
+								{% for doc in pres.documents.all|slice:"1" %}
+									<a href="/files/{{doc.file_path}}" title="{{ doc.name }}"><span class="glyphicon glyphicon-download-alt"></span></a>
+								{% endfor %}
+							{% else %}
+								<a href="/presentation/{{ pres.id }}" title="multiple documents"><span class="glyphicon glyphicon-plus"></span></a>
+							{% endif %}
+						</td>
+					</tr>
+					{% endfor %}
+
+					<tr>
+						<td>&nbsp;</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			{% endif %}{% endfor %}
+		</div>
+
+
+
+
+	<!--	 ROOM 213  	-->
+	<!--	 ROOM 213  	-->
+	<!--	 ROOM 213  	-->
+
+		{% for room in rooms %}{%if room.name == '213' %}
+
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 day well" id="{{room.name}}">
+			<table class="table">
+				<thead>
+					<tr>
+						<th colspan="3">Room {{room.name}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{sessions.40.start_time|date:"H:i"}}</td>
+						<td><b>{{sessions.40.name}}<br><br>
+						</b></td>
+						<td></td>
+					</tr>
+					{% for pres in sessions.40.presentation_set.all %}
+					<tr>
+						<td></td>
+						<td class="presenter_line" onclick="window.location.href= '/presentation/{{pres.id}}';">
+						{{ pres.presenter.last_name }},
+						 {{ pres.presenter.first_name }}</td>
+						<td>
+							{% if pres.documents.count == 0 %}
+								<a href="/presentation/{{pres.id}}" title="Missing Document"><span class="glyphicon glyphicon-exclamation-sign" style="color:red"></span></a>
+							{% elif pres.documents.count == 1 %}
+								{% for doc in pres.documents.all|slice:"1" %}
+									<a href="/files/{{doc.file_path}}" title="{{ doc.name }}"><span class="glyphicon glyphicon-download-alt"></span></a>
+								{% endfor %}
+							{% else %}
+								<a href="/presentation/{{ pres.id }}" title="multiple documents"><span class="glyphicon glyphicon-plus"></span></a>
+							{% endif %}
+						</td>
+					</tr>
+					{% endfor %}
+
+
+					<tr>
+						<td>&nbsp;</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			{% endif %}{% endfor %}
+		</div>
+
+
+
+
+	<!--	 ROOM 215  	-->
+	<!--	 ROOM 215  	-->
+	<!--	 ROOM 215  	-->
+
+		{% for room in rooms %}{%if room.name == '215' %}
+
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 day well" id="{{room.name}}">
+			<table class="table">
+				<thead>
+					<tr>
+						<th colspan="3">Room {{room.name}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{sessions.42.start_time|date:"H:i"}}</td>
+						<td><b>{{sessions.42.name}}<br><br>
+						</b></td>
+						<td></td>
+					</tr>
+					{% for pres in sessions.42.presentation_set.all %}
+					<tr>
+						<td></td>
+						<td class="presenter_line" onclick="window.location.href= '/presentation/{{pres.id}}';">
+						{{ pres.presenter.last_name }},
+						 {{ pres.presenter.first_name }}</td>
+						<td>
+							{% if pres.documents.count == 0 %}
+								<a href="/presentation/{{pres.id}}" title="Missing Document"><span class="glyphicon glyphicon-exclamation-sign" style="color:red"></span></a>
+							{% elif pres.documents.count == 1 %}
+								{% for doc in pres.documents.all|slice:"1" %}
+									<a href="/files/{{doc.file_path}}" title="{{ doc.name }}"><span class="glyphicon glyphicon-download-alt"></span></a>
+								{% endfor %}
+							{% else %}
+								<a href="/presentation/{{ pres.id }}" title="multiple documents"><span class="glyphicon glyphicon-plus"></span></a>
+							{% endif %}
+						</td>
+					</tr>
+					{% endfor %}
+
+
+					<tr>
+						<td>10:00</td>
+						<td style="font-style:italic">Break</td>
+						<td></td>
+					</tr>
+
+					<tr>
+						<td>{{sessions.34.start_time|date:"H:i"}}</td>
+						<td><b>{{sessions.34.name}}<br><br>
+						</b></td>
+						<td></td>
+					</tr>
+					{% for pres in sessions.34.presentation_set.all %}
+					<tr>
+						<td></td>
+						<td class="presenter_line" onclick="window.location.href= '/presentation/{{pres.id}}';">
+						{{ pres.presenter.last_name }},
+						 {{ pres.presenter.first_name }}</td>
+						<td>
+							{% if pres.documents.count == 0 %}
+								<a href="/presentation/{{pres.id}}" title="Missing Document"><span class="glyphicon glyphicon-exclamation-sign" style="color:red"></span></a>
+							{% elif pres.documents.count == 1 %}
+								{% for doc in pres.documents.all|slice:"1" %}
+									<a href="/files/{{doc.file_path}}" title="{{ doc.name }}"><span class="glyphicon glyphicon-download-alt"></span></a>
+								{% endfor %}
+							{% else %}
+								<a href="/presentation/{{ pres.id }}" title="multiple documents"><span class="glyphicon glyphicon-plus"></span></a>
+							{% endif %}
+						</td>
+					</tr>
+					{% endfor %}
+
+					<tr>
+						<td>13:00</td>
+						<td style="font-style:italic">Break</td>
+						<td></td>
+					</tr>
+
+
+					<tr>
+						<td>{{sessions.32.start_time|date:"H:i"}}</td>
+						<td><b>{{sessions.32.name}}<br><br>
+						</b></td>
+						<td></td>
+					</tr>
+					{% for pres in sessions.32.presentation_set.all %}
+					<tr>
+						<td></td>
+						<td class="presenter_line" onclick="window.location.href= '/presentation/{{pres.id}}';">
+						{{ pres.presenter.last_name }},
+						 {{ pres.presenter.first_name }}</td>
+						<td>
+							{% if pres.documents.count == 0 %}
+								<a href="/presentation/{{pres.id}}" title="Missing Document"><span class="glyphicon glyphicon-exclamation-sign" style="color:red"></span></a>
+							{% elif pres.documents.count == 1 %}
+								{% for doc in pres.documents.all|slice:"1" %}
+									<a href="/files/{{doc.file_path}}" title="{{ doc.name }}"><span class="glyphicon glyphicon-download-alt"></span></a>
+								{% endfor %}
+							{% else %}
+								<a href="/presentation/{{ pres.id }}" title="multiple documents"><span class="glyphicon glyphicon-plus"></span></a>
+							{% endif %}
+						</td>
+					</tr>
+					{% endfor %}
+
+
+
+					<tr>
+						<td>&nbsp;</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			{% endif %}{% endfor %}
+		</div>
+
+
+
+		<!-- CANADA HALL 1  -->
+		<!-- CANADA HALL 1  -->
+		<!-- CANADA HALL 1  -->
+
+
+		{% for room in rooms %}{%if room.name == 'Canada Hall 1' %}
+
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 day well" id="{{room.name}}">
+			<table class="table">
+				<thead>
+					<tr>
+						<th colspan="3">Room {{room.name}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{sessions.15.start_time|date:"H:i"}}</td>
+						<td><b>{{sessions.15.name}}<br><br>
+						</b></td>
+						<td></td>
+					</tr>
+					{% for pres in sessions.15.presentation_set.all %}
+					<tr>
+						<td></td>
+						<td class="presenter_line" onclick="window.location.href= '/presentation/{{pres.id}}';">
+						{{ pres.presenter.last_name }},
+						 {{ pres.presenter.first_name }}</td>
+						<td>
+							{% if pres.documents.count == 0 %}
+								<a href="/presentation/{{pres.id}}" title="Missing Document"><span class="glyphicon glyphicon-exclamation-sign" style="color:red"></span></a>
+							{% elif pres.documents.count == 1 %}
+								{% for doc in pres.documents.all|slice:"1" %}
+									<a href="/files/{{doc.file_path}}" title="{{ doc.name }}"><span class="glyphicon glyphicon-download-alt"></span></a>
+								{% endfor %}
+							{% else %}
+								<a href="/presentation/{{ pres.id }}" title="multiple documents"><span class="glyphicon glyphicon-plus"></span></a>
+							{% endif %}
+						</td>
+					</tr>
+					{% endfor %}
+
+					<tr>
+						<td>{{sessions.16.start_time|date:"H:i"}}</td>
+						<td><b>{{sessions.16.name}}<br><br>
+						</b></td>
+						<td></td>
+					</tr>
+					{% for pres in sessions.16.presentation_set.all %}
+					<tr>
+						<td></td>
+						<td class="presenter_line" onclick="window.location.href= '/presentation/{{pres.id}}';">
+						{{ pres.presenter.last_name }},
+						 {{ pres.presenter.first_name }}</td>
+						<td>
+							{% if pres.documents.count == 0 %}
+								<a href="/presentation/{{pres.id}}" title="Missing Document"><span class="glyphicon glyphicon-exclamation-sign" style="color:red"></span></a>
+							{% elif pres.documents.count == 1 %}
+								{% for doc in pres.documents.all|slice:"1" %}
+									<a href="/files/{{doc.file_path}}" title="{{ doc.name }}"><span class="glyphicon glyphicon-download-alt"></span></a>
+								{% endfor %}
+							{% else %}
+								<a href="/presentation/{{ pres.id }}" title="multiple documents"><span class="glyphicon glyphicon-plus"></span></a>
+							{% endif %}
+						</td>
+					</tr>
+					{% endfor %}
+
+					<tr>
+						<td>&nbsp;</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			{% endif %}{% endfor %}
+		</div>
+
+
+	</div>
+</div>
+	
+	
+<div style=" clear:both;"></div>
+
+
+<footer class="bs-docs-footer" role="contentinfo">
+	<div class="container">
+		<ul class="bs-docs-footer-links muted">
+			<li>&middot;</li>
+			<li>&middot;</li>
+		</ul>
+	</div>
+</footer> 
+
+
+
+</div>
+
+
+
+</body></html>

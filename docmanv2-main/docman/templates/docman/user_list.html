@@ -1,0 +1,82 @@
+{% for user in users %}
+		<div class="panel-group" style="font-size:large" id="user_{{ user.id }}">
+			<div class="panel panel-default">
+				<div class="panel-heading row">
+						<div class="col-xs-5 col-sm-4">
+							{{user.username}}
+						</div>
+						<div class="col-xs-5 col-sm-2" >
+							<span id="showbutton_{{user.id}}">
+								<button type="button" class="btn btn-default btn-xs" onclick="show_password('{{user.id}}');">show password</button>
+							</span>
+							<span id="password_{{user.id}}" style="display:none;">{{user.profile.password}}</span>
+						</div>
+						<div class="col-sm-4 hidden-xs">
+						</div>
+						<div class="col-xs-2">
+							<a href='#edit_user_{{ user.id }}' data-bs-toggle="collapse" data-bs-parent="user_{{ user.id }}"><button type="button" class="btn btn-default btn-xs">edit</button></a>
+						</div>
+				</div>
+			</div>
+			<div class="panel-collapse collapse flex-column" id="edit_user_{{ user.id }}">
+				<div class="panel-body">
+					<form action="/edit_user/" method="post" class="form-inline" role="form" id="edit_user_form_{{ user.id }}" onsubmit="return validate_edit_form()">
+					{% csrf_token %}
+					<h3 id="message_{{ user.id }}"></h3>
+					<div class="row">
+						<div class="col-xs-6 text-right">
+							<div class="form-group">
+								<label class="sr-only" for="new_username_{{ user.id }}">Username</label>
+								<input type="hidden" class="form-control" id="username_{{ user.id }}" name="username" value="{{ user.username }}">
+								<input type="username" class="form-control" id="new_username_{{ user.id }}" name="new_username" placeholder="Email Address" value="{{ user.username }}">
+							</div>
+						</div>
+						<div class="col-xs-6 text-left">
+							<div class="form-group">
+								<label class="sr-only" for="password_{{ user.id }}">Password</label>
+								<input type="text" class="form-control" id="password_{{ user.id }}" name="password" placeholder="Password" value="{{ user.profile.password}}">
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-6 text-right" style="padding-top: 10px;">
+							<div class="form-group">
+								<label class="sr-only" for="first_name_{{user.id}}">First Name</label>
+								<input type="username" class="form-control" id="first_name_{{user.id}}" name="first_name" placeholder="First Name" value="{{ user.first_name }}">
+							</div>
+						</div>
+						<div class="col-xs-6 text-left" style="padding-top: 10px;">
+							<div class="form-group">
+								<label class="sr-only" for="last_name_{{user.id}}">Last Name</label>
+								<input type="username" class="form-control" id="last_name_{{user.id}}" name="last_name" placeholder="Last Name" value="{{ user.last_name }}">
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-12" style="padding-top: 10px;">
+							<script type="text/javascript">
+								$('#edit_user_form_{{ user.id }}').ajaxForm(function(){alert('saved.')});
+							</script>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-12">
+							<div style="padding-top: 10px;padding-bottom: 10px;">
+								<button type="submit" class="btn btn-default">Save</button>
+							</div>
+						</div>
+					</div>
+
+
+					</form>
+
+				</div>
+
+			</div>
+		</div>
+	{% endfor %}
+
+

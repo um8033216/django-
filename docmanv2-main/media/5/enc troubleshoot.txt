@@ -1,0 +1,63 @@
+input detection logs:
+
+time in ZULU UTC
+
+several logs in /var/log & /var/log/upstart
+
+cd /var/log/upstart/
+
+
+zless isi_feedbox.* | grep input | grep sending | sort
+
+zcat isi_feedbox.log.4.gz | grep -v "card_mon" > feb11.txt
+
+
+mwcap-info -i /dev/video0
+
+192.168.17.165
+
+Zaq12wsx
+
+ PRESET 2 90 50 PAN 0F 0F 0D 0A TILT 0F 0F 0D 01 FF
+
+90 50 ZOOM 03 06 0B 09 FF
+
+Preset 1
+
+90 50 PAN 0F 0B 0E 0E TILT 0F 0F 08 07 FF
+
+90 50 ZOOM 02 02 0B 0F FF
+
+
+http://192.168.18.56/cgi-bin/ptzctrl.cgi?ptzcmd\&zoomto\&5\&22BF
+
+
+90 50 PAN 0F 0B 0E 0E TILT 0F 0F 08 07 FF
+
+port coquitlam no source found
+
+st johns cc
+
+tripod and head for $500 
+
+
+RDCO (Regional District of Central Okanagan)
+
+City of Grande Prairie
+
+White Rock
+
+CRD (Cariboo Regional District)
+
+Burlington CC
+
+Missoula
+
+Markham
+
+Cobourg
+
+Lambton Shores
+
+TDSB (CC)
+

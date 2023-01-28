@@ -1,0 +1,67 @@
+terry st cartier
+transport 613 993 7391
+dec 5-7 webcast + site visit
+voip1.isilive.ca:30161
+35.182.76.92:30161
+35.183.6.255:30161
+()22q2
+
+ffmpeg -i "concat:C:\Users\I\Desktop\neb\input1.ts|C:\Users\I\Desktop\neb\input2.ts" -c copy -bsf:a aac_adtstoasc C:\Users\I\Desktop\neb\2018-01-15.mp4
+
+
+
+/root/bin/ffmpeg -re -i big_buck_bunny_720p_h264.ts -acodec copy -vcodec copy -f flv rtmp://cdn2.isilive.ca/liverepeater/_definst_/chris/livetest
+
+https://video.isilive.ca/calgary/jan9cctest.mp4
+
+ffmpeg -re -i https://video.isilive.ca/calgary/jan9cctest.mp4 -acodec copy -vcodec copy -f flv rtmp://cdn3.isilive.ca/liverepeater/_definst_/christest/live
+
+/root/bin/ffmpeg -rtsp_transport tcp -i rtsp://192.168.17.118:554 -strict -2 -acodec aac -ab 128k -ac 2 -vcodec libx264 -s 1280x720 -vb 1500k -pix_fmt yuv420p -profile:v baseline -filter:v yadif -f flv rtmp://cdn2.isilive.ca/liverepeater/_definst_/chris/live
+
+ffmpeg -re -i jan9cctest.mp4 -acodec copy -vcodec copy -f flv rtmps://cdn3.isilive.ca/liverepeater/_definst_/calgary/cctest
+
+ffmpeg -i C:/users/i/desktop/final.mp4 -acodec libfaac -ab 128k -ac 2 -vcodec libx264 -aspect 16:9 -s 1280x720 -vb 1500k -pix_fmt yuv420p -profile:v baseline C:/users/i/desktop/output.mp4
+
+ffmpeg -hwaccel vaapi -hwaccel_device /dev/dri/renderD128 -hwaccel_output_format vaapi -i "+input_filename+" -c:v h264_vaapi -b:v 500K -profile 578 -vf 'scale_vaapi=w=640:h=480' -acodec aac -ac 2 -vbr 3 -aspect 4:3 -s 640x480
+
+crestron dmmd 8x8
+crestron dge 100
+
+fedex comf: 98548417
+
+/root/bin/ffmpeg -f v4l2 -framerate 25 -video_size 3840x1088 -i /dev/video1 -acodec copy -vcodec copy -f flv rtmp://cdn2.isilive.ca/liverepeater/_definst_/chris/livetest
+
+/root/bin/ffmpeg -f v4l2 -framerate 25 -video_size 3840x1088 -i /dev/video0 -acodec aac -vcodec libx264 -pix_fmt yuyv422 -f flv rtmp://cdn2.isilive.ca/liverepeater/_definst_/chris/live
+
+ffmpeg -i "New Encoder_Council Meeting_2018-09-10-04-26.mp4" -vf drawbox=t=max:enable='between(t\,7314,8993)' -c:a copy goderich.mp
+
+ssf.exe -U 9910:192.168.16.221:9910 192.168.17.186
+
+ssf.exe -U 9910:192.168.16.221:9910 gateway.isilive.ca
+
+
+64.235.207.2
+
+ffmpeg -init_hw_device qsv=hw -filter_hw_device hw -i New Encoder_Council Meeting_2019-01-07-04-37.mp4 -vcodec mpeg2_qsv -qscale 1 -qmin 1 -intra -acodec pcm_s16le -ar 48000 -ac 2 test.mxf
+
+detroit encoder 1
+4c:ed:fb:93:33:46
+
+encoder 2
+4c:ed:fb:43:8b:1a
+
+
+camrbridge?
+192.168.25.131
+192.167.25.1
+/24
+192.168.1.115
+192.168.0.83
+
+
+192.168.25.132
+
+
+/root/bin/ffmpeg -re -i big_buck_bunny_720p_h264.ts -strict -2 -acodec aac -ab 128k -ac 2 -vcodec libx264 -s 1280x720 -vb 1500k -pix_fmt yuv420p -profile:v baseline -f flv rtmp://cdn2.isilive.ca/liverepeater/_definst_/chris/testtest
+
+905 436 3311 x 5555 29361 

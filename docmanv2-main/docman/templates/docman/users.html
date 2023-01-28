@@ -1,0 +1,154 @@
+{% extends "docman/template.html" %}
+
+{% block title %}
+    Users
+{% endblock %}
+
+
+{% block body %}
+
+
+<script type="text/javascript">
+	var ajax_obj = false;
+	var items_request_in_progress = false;
+
+	function user_list_responded(){
+		if(ajax_obj.status == 200){
+			$('#user_list').html(ajax_obj.responseText);
+	//		$('#loading_indicator').hide();
+		}
+	}
+
+	function show_password(user_id){
+		$('#showbutton_'+user_id).hide();
+		$('#password_'+user_id).show();
+	}
+
+	$( document ).ready(function() {
+
+		// fetch user list
+		ajax_obj = $.ajax({url:'/rpc/users/'}).done(function(){user_list_responded()})
+
+	});
+
+</script>
+
+<div style="padding-top:20px; font-size:large;" class="container-fluid">
+	<div class="panel-group" id="new_user">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title text-center">
+					<a href="#new_user_form_area" data-bs-toggle="collapse" data-bs-parent="new_user">
+						Create a new presenter account +
+					</a>
+				</h4>
+			</div>
+			<div class="panel-collapse collapse justify-content-center {% if message or error_message %}in{% endif %}" id="new_user_form_area">
+				<div class="panel-body">
+					<form action="/users/" method="post" class="form-inline" role="form" onsubmit="return validate_form()">
+					{% csrf_token %}
+					{% if message %}<h3>{{ message }}</h3>{% endif %}
+					{% if error_message %}<h3 style="color:red;">{{ error_message }}</h3>{% endif %}
+					<div class="row">
+						<div class="col-xs-6 text-right">
+							<div class="form-group {{user_error}}">
+								<label class="sr-only" for="username">Username</label>
+								<input type="username" class="form-control" id="new_username" name="new_username" placeholder="Email Address" value="{{ username }}">
+								{% if user_error %}<span class="glyphicon glyphicon-remove form-control-feedback"></span>{% endif %}
+							</div>
+						</div>
+						<div class="col-xs-6 text-left">
+							<div class="form-group {{new_password_error}}">
+								<label class="sr-only" for="new_password">Password</label>
+								<input type="text" class="form-control" id="new_password" name="new_password" placeholder="Password" value="{{password}}">
+								{% if new_password_error %}<span class="glyphicon glyphicon-remove form-control-feedback"></span>{% endif %}
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-6 text-right" style="padding-top: 10px;">
+							<div class="form-group">
+								<label class="sr-only" for="new_first_name">First Name</label>
+								<input type="username" class="form-control" id="new_first_name" name="new_first_name" placeholder="First Name" value="{{ new_first_name }}">
+							</div>
+						</div>
+						<div class="col-xs-6 text-left" style="padding-top: 10px;">
+							<div class="form-group">
+								<label class="sr-only" for="new_last_name">Last Name</label>
+								<input type="username" class="form-control" id="new_last_name" name="new_last_name" placeholder="Last Name" value="{{ new_last_name }}">
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-12" style="padding-top: 10px;">
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-12">
+							<div style="padding-top: 10px;padding-bottom: 10px;">
+								<button type="submit" class="btn btn-default">Create</button>
+							</div>
+						</div>
+					</div>
+
+
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid" id="user_list">
+</div>
+	
+<div style=" clear:both;"></div>
+
+
+<script type="text/javascript">
+	function add_error(obj_id){
+		if( $('#'+obj_id+'error_indicator').length != 0 ){ return }
+		$('#'+obj_id).parent().addClass('has-error has-feedback')
+		var new_error = $(document.createElement('span'));
+		$(new_error).attr("id", obj_id+'error_indicator');
+		$(new_error).addClass('glyphicon glyphicon-remove form-control-feedback');
+		$('#'+obj_id).parent().append(new_error);
+	}
+	function remove_error(obj_id){
+		$('#'+obj_id).parent().removeClass('has-error has-feedback has-warning has-success')
+		$('#'+obj_id+'error_indicator').remove();
+	}
+
+	function validate_form(){
+		var validity = true;
+		if($('#new_username').val().length < 1){ validity = false; add_error('new_username'); }
+		else{
+			lower = $('#id_username').val().toLowerCase();
+			$('#id_username').val(lower);
+		}
+		if($('#new_password').val().length < 1){ validity = false; add_error('new_password'); }
+		if($('#new_first_name').val().length < 1){ validity = false; add_error('new_first_name'); }
+		if($('#new_last_name').val().length < 1){ validity = false; add_error('new_last_name'); }
+
+		return validity;
+	}
+
+	$('#new_username').keypress(function() { remove_error(this.id);
+		// auto-generate suggested password
+		if ($('#new_password').val().length < 1){
+			var randomstring = Math.random().toString(36).slice(-6);
+			$('#new_password').val(randomstring);
+		}
+	});
+	$('#new_password').keypress(function() { remove_error(this.id);});
+	$('#new_first_name').keypress(function() { remove_error(this.id);});
+	$('#new_last_name').keypress(function() { remove_error(this.id);});
+</script>
+
+</div>
+
+{% endblock %}

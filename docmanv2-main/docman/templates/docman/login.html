@@ -1,0 +1,77 @@
+{% extends "docman/template.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+
+{% block body %}
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<div class="bg-gradient-to-tr from-red-200 to-blue-500">
+	{{ state }}
+<section id="login" class="p-4 flex flex-col justify-center min-h-screen max-w-lg mx-auto">
+<div class="p-6 bg-gray-100 rounded">
+  <div class="flex items-center justify-center text-4xl font-black text-sky-900 m-3">
+
+  <h1 class="tracking-wide">CoDoMa<span class="font-mono"></span></h1>
+  </div>
+	<form id="login_form" action="/login/" method="post" role="form" 
+	class="flex flex-col justify-center">
+		{% if next %}
+		<input type="hidden" name="next" value="{{ next }}" />
+		{% endif %}
+	{% csrf_token %}
+	
+	<div class="form-group {{user_error}}">
+	  <label class="text-lg font-large">Username</label>
+	  <input class="mb-3 px-2 py-1.5
+	  mb-3 mt-1 block w-full px-2 py-1.5 border border-gray-300 rounded-md text-lg shadow-sm placeholder-gray-600
+	  focus:outline-none
+	  focus:border-sky-500
+	  focus:ring-1
+	  focus:ring-sky-500
+	  focus:invalid:border-red-500 focus:invalid:ring-red-500" type="username" id="username" name="username" placeholder="Email Address" value="{{ username }}">
+	  {% if user_error %}
+	  <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+	  {% endif %}
+	</div>
+
+	<div class="form-group {{password_error}}">
+	  <label class="text-lg font-large">Password</label>
+	  <input class="
+	  mb-3 mt-1 block w-full px-2 py-1.5 border border-gray-300 rounded-md text-lg shadow-sm placeholder-gray-600
+	  focus:outline-none
+	  focus:border-sky-500
+	  focus:ring-1
+	  focus:ring-sky-500
+	  focus:invalid:border-red-500 focus:invalid:ring-red-500" type="password" id="password" name="password" placeholder="********" value="">
+	  {% if password_error %}
+	  <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+	  {% endif %}
+	</div>  
+	  
+	  <button class="px-4 py-1.5 rounded-md shadow-lg bg-sky-600 font-medium text-gray-100 block hover:bg-sky-700 transition duration-300" type="submit">
+		<span id="login_process_state" class="hidden">Checking ...</span>
+		<span id="login_default_state">Login</span></button>
+	</form>
+</div>
+</section>
+
+
+</div>
+
+<script type="text/javascript">
+	function validate_form(){
+		lower = $('#username').val().toLowerCase();
+		$('#username').val(lower);
+		return False;
+	}
+</script>
+
+	
+<div style=" clear:both;"></div>
+
+
+{% endblock %}

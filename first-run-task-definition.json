@@ -1,0 +1,105 @@
+{
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:524655158073:task-definition/test:36",
+    "containerDefinitions": [
+        {
+            "name": "test",
+            "image": "524655158073.dkr.ecr.us-east-1.amazonaws.com/codoma-git:d8fd1990ed841165d4cfea818f498a9459013acc",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "containerPort": 8000,
+                    "hostPort": 8000,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "mountPoints": [
+                {
+                    "sourceVolume": "test",
+                    "containerPath": "/mnt"
+                }
+            ],
+            "volumesFrom": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/test",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
+        }
+    ],
+    "family": "test",
+    "taskRoleArn": "arn:aws:iam::524655158073:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::524655158073:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "revision": 36,
+    "volumes": [
+        {
+            "name": "test",
+            "efsVolumeConfiguration": {
+                "fileSystemId": "fs-0d66e30688b6ab43a",
+                "rootDirectory": "/",
+                "transitEncryption": "ENABLED",
+                "authorizationConfig": {
+                    "accessPointId": "fsap-0c8c6c0ff95fb5296",
+                    "iam": "DISABLED"
+                }
+            }
+        }
+    ],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "ecs.capability.efsAuth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "ecs.capability.efs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.25"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "512",
+    "runtimePlatform": {
+        "operatingSystemFamily": "LINUX"
+    },
+    "registeredAt": "2023-01-10T13:51:21.811Z",
+    "registeredBy": "arn:aws:iam::524655158073:user/Tunde",
+    "tags": []
+}

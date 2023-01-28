@@ -1,0 +1,101 @@
+{% extends "docman/template.html" %}
+
+{% block title %}
+    File List
+{% endblock %}
+
+{% block body %}
+
+<style>
+#myInput {
+    background-image: url('/static/img/searchicon.png'); /* Add a search icon to input */
+    background-position: 10px 12px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    background-size:25px;
+    background-color: white;
+    width: 100%; /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid rgb(199, 199, 199); /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+  }
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  opacity: 1; /* Firefox */
+}
+
+</style>
+
+<script>
+    function myFunction() {
+      // Declare variables
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+    </script>
+<div class ="col-md-12" >
+        <h1 style="text-align: center; font-weight:bold; padding-top: 10px; padding-bottom:10px">
+            User File List
+        </h1>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for name..">
+
+        <table class="table" id="myTable" style=font-size:14px>
+            <thead>
+                <tr class="header">
+                    <th style="width:45%;">Name</th>
+                    <th style="width:45%;">Session</th>
+                    <th style="width:10%;">File</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pres in presentation.all %}
+                <tr>
+                    <td class="presenter_line" onclick="window.location.href= '/presentation/{{pres.id}}';">
+                    <b>{{ pres.presenter.last_name }},
+                     {{ pres.presenter.first_name }}
+                    </b>
+                    </td>
+                    <td>
+                     {{ pres.session.name }}</td>
+                    <td>
+                        {% if pres.documents.count == 0 %}
+                            <a href="/presentation/{{pres.id}}" title="Missing Document"><span class="glyphicon glyphicon-exclamation-sign" style="color:red"></span></a>
+                        {% elif pres.documents.count == 1 %}
+                            {% for doc in pres.documents.all|slice:"1" %}
+                                <a href="/files/{{doc.file_path}}" title="{{ doc.name }}"><span class="glyphicon glyphicon-download-alt"></span></a>
+                            {% endfor %}
+                        {% else %}
+                            <a href="/presentation/{{ pres.id }}" title="multiple documents"><span class="glyphicon glyphicon-plus"></span></a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+
+<!-- 					<tr>
+                    <td>16:30</td>
+                    <td style="font-style:italic">Dinner</td>
+                    <td></td>
+                </tr> -->
+            </tbody>
+        </table>
+    </div>
+
+	
+
+{% endblock %}
