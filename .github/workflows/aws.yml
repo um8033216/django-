@@ -37,8 +37,10 @@ env:
   ECS_CLUSTER: test           # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: ./first-run-task-definition.json # set this to the path to your Amazon ECS task definition
                                                # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: test      # set this to the name of the container in the
-                                               # containerDefinitions section of your task definition
+  CONTAINER_NAME: test   # set this to the name of the container in the
+  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                                                  # containerDefinitions section of your task definition
   DB_NAME: ${{ secrets.DB_NAME }}
   DB_USER: ${{ secrets.DB_USER }}
   DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
